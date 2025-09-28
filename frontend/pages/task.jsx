@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 const Task = () => {
   const [tasks, setTasks] = useState([]);
 
-  // Form states
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [newStatus, setNewStatus] = useState("Pending");
@@ -22,13 +21,11 @@ const Task = () => {
     High: "text-red-600 font-semibold",
   };
 
-  // ----- Logout -----
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
   };
 
-  // ----- Fetch Tasks -----
   const fetchTasks = async () => {
     try {
       const res = await fetch("http://localhost:5000/api/tasks");
@@ -43,7 +40,6 @@ const Task = () => {
     fetchTasks();
   }, []);
 
-  // ----- Create Task -----
   const createTask = async (e) => {
     e.preventDefault();
     if (!newTitle || !newDescription || !newDueDate) {
@@ -79,7 +75,6 @@ const Task = () => {
     }
   };
 
-  // ----- Edit & Update -----
   const toggleEdit = (index) =>
     setTasks(tasks.map((t, i) => i === index ? { ...t, editMode: !t.editMode } : t));
 
@@ -99,7 +94,6 @@ const Task = () => {
     }
   };
 
-  // ----- Delete -----
   const deleteTask = async (id) => {
     if (!window.confirm("Delete this task?")) return;
     try {
@@ -115,7 +109,6 @@ const Task = () => {
   return (
     <div>
       <div className="container mx-auto px-4 py-10 space-y-10">
-        {/* ----- Create Task Form ----- */}
         <div className="bg-white shadow-lg rounded-2xl p-8">
           <h2 className="text-center text-3xl font-bold mb-8">Create Task</h2>
           <form onSubmit={createTask} className="space-y-5">
@@ -191,7 +184,6 @@ const Task = () => {
           </form>
         </div>
 
-        {/* ----- Task List ----- */}
         <div className="bg-white shadow-lg rounded-2xl p-8 max-h-[600px] overflow-y-auto">
           <h3 className="text-2xl font-bold mb-6 text-center">All Tasks</h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
