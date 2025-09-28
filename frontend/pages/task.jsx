@@ -75,11 +75,13 @@ const Task = () => {
     }
   };
 
-  const toggleEdit = (index) =>
-    setTasks(tasks.map((t, i) => i === index ? { ...t, editMode: !t.editMode } : t));
+  const toggleEdit = (index) =>{
+      setTasks(tasks.map((t, i) => i === index ? { ...t, editMode: !t.editMode } : t));
+    }
 
-  const updateTaskField = (index, field, value) =>
-    setTasks(tasks.map((t, i) => i === index ? { ...t, [field]: value } : t));
+  const updateTaskField = (index, field, value) =>{
+      setTasks(tasks.map((t, i) => i === index ? { ...t, [field]: value } : t));
+  }
 
   const saveTask = async (task) => {
     try {
@@ -88,7 +90,7 @@ const Task = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(task),
       });
-      if (res.ok) fetchTasks();
+      fetchTasks();
     } catch (err) {
       console.error("Error updating task:", err);
     }
@@ -100,7 +102,7 @@ const Task = () => {
       const res = await fetch(`http://localhost:5000/api/tasks/${id}`, {
         method: "DELETE",
       });
-      if (res.ok) fetchTasks();
+     fetchTasks();
     } catch (err) {
       console.error("Error deleting task:", err);
     }
